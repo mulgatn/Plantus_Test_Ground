@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Project",
+			"Path": "D:\\UE_Projects\\Plantus_Test_Ground\\Project\\Source\\Project.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "ProjectEditor",
+			"Path": "D:\\UE_Projects\\Plantus_Test_Ground\\Project\\Source\\ProjectEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

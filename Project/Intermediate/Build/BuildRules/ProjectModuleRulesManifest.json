@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\UE_Projects\\Plantus_Test_Ground\\Project\\Source\\Project\\Project.Build.cs",
+		"D:\\UE_Projects\\Plantus_Test_Ground\\Project\\Source\\Project.Target.cs",
+		"D:\\UE_Projects\\Plantus_Test_Ground\\Project\\Source\\ProjectEditor.Target.cs"
+	],
+	"EngineVersion": "4.24.3"
+}
