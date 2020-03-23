@@ -1,8 +1,0 @@
-{
-	"SourceFiles": [
-		"D:\\UE_Projects\\Plantus_Test_Ground\\PlantusTestGround\\Source\\PlantusTestGround\\PlantusTestGround.Build.cs",
-		"D:\\UE_Projects\\Plantus_Test_Ground\\PlantusTestGround\\Source\\PlantusTestGround.Target.cs",
-		"D:\\UE_Projects\\Plantus_Test_Ground\\PlantusTestGround\\Source\\PlantusTestGroundEditor.Target.cs"
-	],
-	"EngineVersion": "4.24.3"
-}
