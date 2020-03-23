@@ -602,3 +602,55 @@ LogConfig: Setting CVar [[r.setres:1280x720]]
 [2020.03.23-19.35.21:782][  0]LogContentStreaming: Texture pool size now 1000 MB
 [2020.03.23-19.35.34:324][750]LogAssetRegistry: Asset discovery search completed in 23.0455 seconds
 [2020.03.23-19.35.34:328][750]LogCollectionManager: Fixed up redirectors for 0 collections in 0.000010 seconds (updated 0 objects)
+[2020.03.23-19.36.51:762][348]LogTemp: Repeating last play command: Selected Viewport
+[2020.03.23-19.36.51:766][348]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2020.03.23-19.36.51:767][348]PIE: New page: PIE session: Untitled_1 (23 Mar 2020, 21:36:51)
+[2020.03.23-19.36.51:768][348]LogOnline: OSS: Creating online subsystem instance for: NULL
+[2020.03.23-19.36.51:770][348]LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for module [NULL]
+[2020.03.23-19.36.51:771][348]LogPlayLevel: Creating play world package: /Temp/UEDPIE_0_Untitled_1
+[2020.03.23-19.36.51:774][348]LogPlayLevel: PIE: StaticDuplicateObject took: (0.003181s)
+[2020.03.23-19.36.51:775][348]LogAIModule: Creating AISystem for world Untitled_1
+[2020.03.23-19.36.51:776][348]LogPlayLevel: PIE: World Init took: (0.002745s)
+[2020.03.23-19.36.51:776][348]LogPlayLevel: PIE: Created PIE world by copying editor world from /Temp/Untitled_1.Untitled_1 to /Temp/UEDPIE_0_Untitled_1.Untitled_1 (0.006210s)
+[2020.03.23-19.36.51:804][348]LogUObjectHash: Compacting FUObjectHashTables data took   1.72ms
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2020.03.23-19.36.51:806][348]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2020.03.23-19.36.51:806][348]LogAudio: Display: AudioDevice MaxSources: 32
+[2020.03.23-19.36.51:807][348]LogAudio: Display: Using built-in audio occlusion.
+[2020.03.23-19.36.51:807][348]LogAudioMixer: Display: Initializing audio mixer.
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Audio Device Output Speaker Info:
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Name: Speakers (Realtek High Definition Audio)
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Is Default: Yes
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Sample Rate: 48000
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Channel Count Used: 2
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Device Channel Count: 2
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: Channel Order:
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: 0: FrontLeft
+[2020.03.23-19.36.51:850][348]LogAudioMixer: Display: 1: FrontRight
+[2020.03.23-19.36.51:994][348]LogAudioMixer: Display: Using Audio Device Speakers (Realtek High Definition Audio)
+[2020.03.23-19.36.51:996][348]LogInit: FAudioDevice initialized.
+[2020.03.23-19.36.52:009][348]LogLoad: Game class is 'GameModeBase'
+[2020.03.23-19.36.52:011][348]LogWorld: Bringing World /Temp/UEDPIE_0_Untitled_1.Untitled_1 up for play (max tick rate 60) at 2020.03.23-20.36.52
+[2020.03.23-19.36.52:011][348]LogWorld: Bringing up level for play took: 0.000836
+[2020.03.23-19.36.52:012][348]LogOnline: OSS: Creating online subsystem instance for: :Context_1
+[2020.03.23-19.36.52:015][348]LogContentBrowser: Native class hierarchy updated for 'MovieSceneCapture' in 0.0004 seconds. Added 20 classes and 0 folders.
+[2020.03.23-19.36.52:016][348]PIE: Play in editor start time for /Temp/UEDPIE_0_Untitled_1 -0.021
+[2020.03.23-19.37.14:748][708]LogAudioMixer: Display: No commands were queued while flushing the source manager.
+[2020.03.23-19.37.14:758][708]LogAudioMixer: Display: Flush succeeded in the source manager command queue (1).
+[2020.03.23-19.37.14:778][708]LogAudioMixer: Display: Flush succeeded the source manager command queue (2).
+[2020.03.23-19.37.14:779][708]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2020.03.23-19.37.14:779][708]LogWorld: BeginTearingDown for /Temp/UEDPIE_0_Untitled_1
+[2020.03.23-19.37.14:779][708]LogAudioMixer: Display: No commands were queued while flushing the source manager.
+[2020.03.23-19.37.14:779][708]LogWorld: UWorld::CleanupWorld for Untitled_1, bSessionEnded=true, bCleanupResources=true
+[2020.03.23-19.37.14:779][708]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.03.23-19.37.14:792][708]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2020.03.23-19.37.14:796][708]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2020.03.23-19.37.14:823][708]LogAudioMixer: Display: No commands were queued while flushing the source manager.
+[2020.03.23-19.37.14:828][708]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2020.03.23-19.37.14:831][708]LogUObjectHash: Compacting FUObjectHashTables data took   1.85ms
+[2020.03.23-19.37.14:851][709]LogPlayLevel: Display: Destroying online subsystem :Context_1
