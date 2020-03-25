@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include "Camera/CameraComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
@@ -14,6 +14,7 @@ class MYPROJECT_API APlayerCharacter : public ACharacter
 private:
 	UPROPERTY(EditAnywhere)
 		float speed_;
+	UCameraComponent* camera_component_ = nullptr;
 
 public:
 	// Sets default values for this character's properties

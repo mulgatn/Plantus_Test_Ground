@@ -17,7 +17,10 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	camera_component_ = FindComponentByClass<UCameraComponent>();
+	if (camera_component_ != nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("FOUND IT!"));
+	}
 }
 
 // Called every frame
@@ -53,6 +56,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MouseX", this, &APlayerCharacter::AddControllerYawInput);
 
 }
 
