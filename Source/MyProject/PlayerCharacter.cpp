@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter.h"
+#include "Components/InputComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -30,7 +31,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	
-	
+	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
 
 }
 
