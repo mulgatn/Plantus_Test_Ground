@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "Components/InputComponent.h"
+#include "Engine/World.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -26,12 +27,32 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 }
 
+void APlayerCharacter::MoveForward(float value) {
+	
+	if(value != 0.0f){
+		float new_speed = value * speed_;
+		AddMovementInput(GetActorForwardVector(), new_speed);
+	}
+}
+
+void APlayerCharacter::MoveRight(float value) {
+
+	if (value != 0.0f) {
+		float new_speed = value * speed_;
+		AddMovementInput(GetActorRightVector(), new_speed);
+	}
+}
+
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 
 }
 

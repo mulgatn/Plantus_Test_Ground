@@ -11,6 +11,10 @@ class MYPROJECT_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(EditAnywhere)
+		float speed_;
+
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
@@ -19,7 +23,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -27,4 +31,5 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void MoveForward(float value);
+	void MoveRight(float value);
 };
