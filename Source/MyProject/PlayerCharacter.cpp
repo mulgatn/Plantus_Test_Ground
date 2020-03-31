@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -19,6 +20,7 @@ APlayerCharacter::APlayerCharacter()
 	mouse_sensitivity_ = 3.0f;
 	fall_gravity_ = 1.0f;
 	default_gravity_ = 1.0f;
+	reach_range_ = 100.0f;
 	camera_rotation_Y_limit_ = FVector2D(70.0f, -85.0f);
 
 }
@@ -33,7 +35,6 @@ void APlayerCharacter::BeginPlay()
 	}
 	movement_component_ = GetCharacterMovement();
 	movement_component_->MaxWalkSpeed = walk_speed_ * speed_multiplier_;
-
 }
 
 // Called every frame
@@ -41,6 +42,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	SetGravity();
+	AActor* hit_actor = Raycast();
+	
+	if (hit_actor) {
+		UE_LOG(LogTemp, Warning, TEXT("HIT %s"), *hit_actor->GetName());
+	}
 }
 
 void APlayerCharacter::MoveForward(float value) {
@@ -103,8 +109,23 @@ void APlayerCharacter::SetGravity() {
 	else {
 		movement_component_->GravityScale = default_gravity_;
 	}
-	//If velocity.Z is less than 0
-	//Set fall gravity
+}
+
+AActor* APlayerCharacter::Raycast() {
+	FMinimalViewInfo camera_view_info;
+	camera_component_->GetCameraView(1.0f, camera_view_info);
+	FVector camera_location = camera_view_info.Location;
+	FRotator camera_rotation = camera_view_info.Rotation;
+
+	FVector start = camera_location;
+	FVector end = (camera_rotation.Vector() * reach_range_) + start;
+	FHitResult Hit;
+	UE_LOG(LogTemp, Warning, TEXT("HELLO"));
+	UE_LOG(LogTemp, Warning, TEXT("START VECTOR: X: %f Y: %f Z: %f"), start.X, start.Y, start.Z);
+	DrawDebugLine(GetWorld(), start, end, FColor(255, 0, 0, 0), false, 0.1f, 0, 2.0f);
+	
+	GetWorld()->LineTraceSingleByChannel(Hit, start, end, ECollisionChannel::ECC_GameTraceChannel1);
+	return Hit.GetActor();
 }
 
 // Called to bind functionality to input

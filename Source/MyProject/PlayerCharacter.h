@@ -34,6 +34,9 @@ private:
 	float default_gravity_;
 
 	UPROPERTY(EditAnywhere, Category = "Player Control")
+	float reach_range_;
+
+	UPROPERTY(EditAnywhere, Category = "Player Control")
 	FVector2D camera_rotation_Y_limit_;
 
 	UPROPERTY()
@@ -70,4 +73,6 @@ public:
 	void StopRun();
 	UFUNCTION()
 	void SetGravity();
+	UFUNCTION()
+	AActor* Raycast();
 };
