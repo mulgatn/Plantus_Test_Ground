@@ -17,6 +17,8 @@ APlayerCharacter::APlayerCharacter()
 	speed_multiplier_ = 100.0f;
 	b_can_run_ = true;
 	mouse_sensitivity_ = 3.0f;
+	fall_gravity_ = 1.0f;
+	default_gravity_ = 1.0f;
 	camera_rotation_Y_limit_ = FVector2D(70.0f, -85.0f);
 
 }
@@ -31,12 +33,14 @@ void APlayerCharacter::BeginPlay()
 	}
 	movement_component_ = GetCharacterMovement();
 	movement_component_->MaxWalkSpeed = walk_speed_ * speed_multiplier_;
+
 }
 
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	SetGravity();
 }
 
 void APlayerCharacter::MoveForward(float value) {
@@ -90,6 +94,17 @@ void APlayerCharacter::StopRun() {
 	if (movement_component_) {
 		movement_component_->MaxWalkSpeed = walk_speed_ * speed_multiplier_;
 	}
+}
+
+void APlayerCharacter::SetGravity() {
+	if (movement_component_->Velocity.Z < 0) {
+		movement_component_->GravityScale = fall_gravity_;
+	}
+	else {
+		movement_component_->GravityScale = default_gravity_;
+	}
+	//If velocity.Z is less than 0
+	//Set fall gravity
 }
 
 // Called to bind functionality to input
