@@ -83,7 +83,9 @@ public:
 	UFUNCTION()
 	void SetGravity();
 	UFUNCTION()
-	AActor* Raycast();
+	AActor* RaycastToObject();
+	UFUNCTION()
+	AActor* RaycastToPlace();
 	UFUNCTION()
 	void InteractWithObject();
 	UFUNCTION()

@@ -8,6 +8,7 @@
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/StaticMesh.h"
+#include "Engine.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -40,9 +41,12 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	SetGravity();
-	if (!held_item_)
-	{
-		interactable_object_ = Raycast();
+
+	if (!held_item_) {
+		interactable_object_ = RaycastToObject();
+	}
+	else {
+		interactable_object_ = RaycastToPlace();
 	}
 }
 
@@ -108,24 +112,54 @@ void APlayerCharacter::SetGravity() {
 	}
 }
 
-AActor* APlayerCharacter::Raycast() {
+AActor* APlayerCharacter::RaycastToObject() {
 	FMinimalViewInfo camera_view_info;
 	camera_component_->GetCameraView(1.0f, camera_view_info);
 	FVector camera_location = camera_view_info.Location;
+	camera_location.Z -= 100.0f;
+
 	FRotator camera_rotation = camera_view_info.Rotation;
 
 	FVector start = camera_location;
 	FVector end = (camera_rotation.Vector() * reach_range_) + start;
 	FHitResult Hit;
-	DrawDebugLine(GetWorld(), start, end, FColor(255, 0, 0, 0), false, 0.1f, 0, 2.0f);
-	
+
+	//Debug Raycast
+	//DrawDebugLine(GetWorld(), start, end, FColor(255, 0, 0, 0), false, 0.1f, 0, 2.0f);
+
+
 	GetWorld()->LineTraceSingleByChannel(Hit, start, end, ECollisionChannel::ECC_GameTraceChannel1);
+	return Hit.GetActor();
+}
+
+
+AActor* APlayerCharacter::RaycastToPlace() {
+	FMinimalViewInfo camera_view_info;
+	camera_component_->GetCameraView(1.0f, camera_view_info);
+	FVector camera_location = camera_view_info.Location;
+	FRotator camera_rotation = camera_view_info.Rotation;
+	camera_location.Z -= 100.0f;
+
+	FVector start = camera_location;
+	FVector end = (camera_rotation.Vector() * reach_range_) + start;
+	FHitResult Hit;
+
+	//Debug Raycast
+	//DrawDebugLine(GetWorld(), start, end, FColor(255, 0, 0, 0), false, 0.1f, 0, 2.0f);
+
+	GetWorld()->LineTraceSingleByChannel(Hit, start, end, ECollisionChannel::ECC_GameTraceChannel2);
+
+	if (Hit.GetActor()) {
+		
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *Hit.GetActor()->GetName());
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("PRESS E TO PLACE"));
+	}
 	return Hit.GetActor();
 }
 
 void APlayerCharacter::InteractWithObject()
 {
-	if (interactable_object_)
+	if (interactable_object_ || held_item_)
 	{
 		PickUpObject();
 	}
@@ -140,13 +174,25 @@ void APlayerCharacter::PickUpObject()
 		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		held_item_->SetActorLocation(held_item_pos_->GetComponentLocation());
 		held_item_->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+		FVector current_scale = held_item_->FindComponentByClass<UStaticMeshComponent>()->GetRelativeScale3D();
+		FVector new_scale = FVector(current_scale.X / 2, current_scale.Y / 2, current_scale.Z / 2);
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetRelativeScale3D(new_scale);
 	}
 
 	else if (held_item_)
 	{
 		held_item_->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetSimulatePhysics(true);
 		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		FVector current_scale = held_item_->FindComponentByClass<UStaticMeshComponent>()->GetRelativeScale3D();
+		FVector new_scale = FVector(current_scale.X * 2, current_scale.Y * 2, current_scale.Z * 2);
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetRelativeScale3D(new_scale);
+		if (interactable_object_) {
+			FVector new_location = FVector(interactable_object_->GetTargetLocation());
+			held_item_->SetActorLocation(new_location);
+		}
+		else {
+			held_item_->FindComponentByClass<UStaticMeshComponent>()->SetSimulatePhysics(true);
+		}
 		held_item_ = nullptr;
 	}
 }
