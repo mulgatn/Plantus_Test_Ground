@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "Engine/StaticMesh.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -39,11 +40,10 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	SetGravity();
-	interactable_object_ = Raycast();
-	
-	/*if (interactable_object_) {
-		UE_LOG(LogTemp, Warning, TEXT("HIT %s"), *interactable_object_->GetName());
-	}*/
+	if (!held_item_)
+	{
+		interactable_object_ = Raycast();
+	}
 }
 
 void APlayerCharacter::MoveForward(float value) {
@@ -136,7 +136,18 @@ void APlayerCharacter::PickUpObject()
 	if (!held_item_)
 	{
 		held_item_ = interactable_object_;
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetSimulatePhysics(false);
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		held_item_->SetActorLocation(held_item_pos_->GetComponentLocation());
+		held_item_->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+	}
+
+	else if (held_item_)
+	{
+		held_item_->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetSimulatePhysics(true);
+		held_item_->FindComponentByClass<UStaticMeshComponent>()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		held_item_ = nullptr;
 	}
 }
 
