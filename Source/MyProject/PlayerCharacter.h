@@ -45,9 +45,18 @@ private:
 	UPROPERTY()
 	UCharacterMovementComponent* movement_component_ = nullptr;
 
+	UPROPERTY()
+	AActor* interactable_object_ = nullptr;
+
+	UPROPERTY()
+	AActor* held_item_ = nullptr;
+
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
+
+	UPROPERTY(BlueprintReadWrite)
+	USceneComponent* held_item_pos_ = nullptr;
 
 protected:
 	// Called when the game starts or when spawned
@@ -75,4 +84,10 @@ public:
 	void SetGravity();
 	UFUNCTION()
 	AActor* Raycast();
+	UFUNCTION()
+	void InteractWithObject();
+	UFUNCTION()
+	void PickUpObject();
+	UFUNCTION()
+	void ActivateObject();
 };
