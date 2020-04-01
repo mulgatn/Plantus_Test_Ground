@@ -30,9 +30,6 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	camera_component_ = FindComponentByClass<UCameraComponent>();
-	if (camera_component_ != nullptr) {
-
-	}
 	movement_component_ = GetCharacterMovement();
 	movement_component_->MaxWalkSpeed = walk_speed_ * speed_multiplier_;
 }
@@ -42,11 +39,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	SetGravity();
-	AActor* hit_actor = Raycast();
+	interactable_object_ = Raycast();
 	
-	if (hit_actor) {
-		UE_LOG(LogTemp, Warning, TEXT("HIT %s"), *hit_actor->GetName());
-	}
+	/*if (interactable_object_) {
+		UE_LOG(LogTemp, Warning, TEXT("HIT %s"), *interactable_object_->GetName());
+	}*/
 }
 
 void APlayerCharacter::MoveForward(float value) {
@@ -120,12 +117,31 @@ AActor* APlayerCharacter::Raycast() {
 	FVector start = camera_location;
 	FVector end = (camera_rotation.Vector() * reach_range_) + start;
 	FHitResult Hit;
-	UE_LOG(LogTemp, Warning, TEXT("HELLO"));
-	UE_LOG(LogTemp, Warning, TEXT("START VECTOR: X: %f Y: %f Z: %f"), start.X, start.Y, start.Z);
 	DrawDebugLine(GetWorld(), start, end, FColor(255, 0, 0, 0), false, 0.1f, 0, 2.0f);
 	
 	GetWorld()->LineTraceSingleByChannel(Hit, start, end, ECollisionChannel::ECC_GameTraceChannel1);
 	return Hit.GetActor();
+}
+
+void APlayerCharacter::InteractWithObject()
+{
+	if (interactable_object_)
+	{
+		PickUpObject();
+	}
+}
+
+void APlayerCharacter::PickUpObject()
+{
+	if (!held_item_)
+	{
+		held_item_ = interactable_object_;
+		held_item_->SetActorLocation(held_item_pos_->GetComponentLocation());
+	}
+}
+
+void APlayerCharacter::ActivateObject()
+{
 }
 
 // Called to bind functionality to input
@@ -138,6 +154,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("Run", IE_Pressed, this, &APlayerCharacter::StartRun);
 	PlayerInputComponent->BindAction("Run", IE_Released, this, &APlayerCharacter::StopRun);
+
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &APlayerCharacter::InteractWithObject);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
